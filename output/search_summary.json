@@ -1,0 +1,13 @@
+{
+  "force_N": 1000,
+  "deflection_limit_mm": 0.5,
+  "safety_factor": 1.15,
+  "grid": 81,
+  "length_step_mm": 10.0,
+  "height_step_mm": 1.0,
+  "predicted_feasible_grid_points": 6108,
+  "surrogate_prediction_seconds": 0.035814999995636754,
+  "fem_verified_count": 12,
+  "fem_failed_count": 2,
+  "note": "寸法範囲は離散格子上の予測。区間内部と未検証点の合格は保証しない。"
+}

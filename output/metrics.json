@@ -1,0 +1,17 @@
+{
+  "model": "extra-trees",
+  "samples": 800,
+  "dataset_id": "eac235c7a8bfaa4a",
+  "train_samples": 640,
+  "test_samples": 160,
+  "mae_mm": 0.01564019166068207,
+  "mape_percent": 8.400559912863622,
+  "r2": 0.9503074119580903,
+  "max_relative_error_percent": 45.53853386902451,
+  "fem_data_seconds": 5.6474369000061415,
+  "feature_importance_L_H_F": [
+    0.35400110219143016,
+    0.3839887957905965,
+    0.26201010201797337
+  ]
+}

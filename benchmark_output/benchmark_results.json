@@ -1,0 +1,122 @@
+{
+  "measured_at": "2026-10-24T19:41:20+09:00",
+  "grid": 81,
+  "points": 6561,
+  "force_N": 1000,
+  "limit_mm": 0.5,
+  "factor": 1.15,
+  "repeats": 3,
+  "samples": 800,
+  "length_step_mm": 10.0,
+  "height_step_mm": 1.0,
+  "settings": {
+    "young": 210000.0,
+    "poisson": 0.3,
+    "thickness": 20.0,
+    "nx": 120,
+    "ny": 12,
+    "length_min": 400.0,
+    "length_max": 1200.0,
+    "height_min": 40.0,
+    "height_max": 120.0,
+    "force_min": 100.0,
+    "force_max": 2000.0,
+    "seed": 42
+  },
+  "timings": {
+    "data_generation_s": {
+      "median": 5.704296700001578,
+      "min": 5.669532500003697,
+      "max": 5.80690749999485
+    },
+    "fit_s": {
+      "median": 0.10539250000147149,
+      "min": 0.09908179999911226,
+      "max": 0.10591409999324242
+    },
+    "save_s": {
+      "median": 0.040815200001816265,
+      "min": 0.039472500000556465,
+      "max": 0.04129310000280384
+    },
+    "initialization_s": {
+      "median": 5.8510259999966365,
+      "min": 5.816218100007973,
+      "max": 5.9454617999945185
+    },
+    "load_s": {
+      "median": 0.05210399999486981,
+      "min": 0.05066170000645798,
+      "max": 0.0536151999986032
+    },
+    "fem_search_s": {
+      "median": 47.27077879999706,
+      "min": 46.25125939999998,
+      "max": 50.22038259999681
+    },
+    "surrogate_search_s": {
+      "median": 0.03695999999763444,
+      "min": 0.0368153999952483,
+      "max": 0.03733749999810243
+    },
+    "load_and_search_s": {
+      "median": 0.08891939999011811,
+      "min": 0.08799920000456041,
+      "max": 0.09057519999623764
+    },
+    "verification_s": {
+      "median": 0.08424899999954505,
+      "min": 0.08335300000180723,
+      "max": 0.08977089999825694
+    },
+    "surrogate_with_verification_s": {
+      "median": 0.12158649999764748,
+      "min": 0.12031299999944167,
+      "max": 0.12658629999350524
+    },
+    "cached_fem_search_s": {
+      "median": 0.0006025999973644502,
+      "min": 0.0006018999993102625,
+      "max": 0.0006828000041423365
+    }
+  },
+  "accuracy": [
+    {
+      "factor": 1.0,
+      "predicted_feasible": 6191,
+      "false_accept": 34,
+      "false_reject": 7,
+      "agreement_percent": 99.37509525986891,
+      "false_accept_fraction_of_predictions_percent": 0.5491842997900178
+    },
+    {
+      "factor": 1.15,
+      "predicted_feasible": 6108,
+      "false_accept": 7,
+      "false_reject": 63,
+      "agreement_percent": 98.93308946806889,
+      "false_accept_fraction_of_predictions_percent": 0.11460379829731501
+    }
+  ],
+  "fem_feasible": 6164,
+  "grid_mape_percent": 7.48410910336766,
+  "grid_max_relative_error_percent": 65.40339452390107,
+  "verification_count": 12,
+  "verification_failures": 2,
+  "linearity_max_relative_error": 1.3322676295501878e-15,
+  "environment": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "logical_cpus": 24,
+    "python": "3.12.3",
+    "numpy": "2.4.4",
+    "scipy": "1.17.1",
+    "sklearn": "1.7.2"
+  },
+  "source_sha256": {
+    "C:\\Users\\user\\Documents\\Codex\\2026-10-24\\python-2d-fem\\benchmark_surrogate.py": "bd00e421714c26330e2f8ebf5ddfc3ebd309b9bbe8d365942dd9dd3aae96295d",
+    "beam_surrogate.py": "8931cd8a187995e4c92bcef241d48182c37eab6fed1a03d8dc7b107716284cb4",
+    "output\\training_data.csv": "147589beaf9324282bf8000a1f94b7a899d79f73ad096fb9a0f7171c270d9cbd",
+    "output\\surrogate.joblib": "bbde58eaa7c3cd44416f80307e8faf3f57704fabdec73f79614d5994849786c1"
+  }
+}

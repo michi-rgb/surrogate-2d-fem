@@ -1,0 +1,14 @@
+{
+  "young": 210000.0,
+  "poisson": 0.3,
+  "thickness": 20.0,
+  "nx": 120,
+  "ny": 12,
+  "length_min": 400.0,
+  "length_max": 1200.0,
+  "height_min": 40.0,
+  "height_max": 120.0,
+  "force_min": 100.0,
+  "force_max": 2000.0,
+  "seed": 42
+}

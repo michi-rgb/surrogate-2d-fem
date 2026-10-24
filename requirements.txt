@@ -1,0 +1,6 @@
+# Python 3.10以上を想定。動作確認に用いた版はREADMEに記載。
+numpy>=1.26,<3
+scipy>=1.12,<2
+scikit-learn>=1.4,<2
+matplotlib>=3.8,<4
+joblib>=1.3,<2

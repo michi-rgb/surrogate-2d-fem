@@ -1,0 +1,23 @@
+{
+  "dataset_id": "eac235c7a8bfaa4a",
+  "schema_version": 1,
+  "sampler": "latin-hypercube-v1",
+  "samples": 800,
+  "settings": {
+    "young": 210000.0,
+    "poisson": 0.3,
+    "thickness": 20.0,
+    "nx": 120,
+    "ny": 12,
+    "length_min": 400.0,
+    "length_max": 1200.0,
+    "height_min": 40.0,
+    "height_max": 120.0,
+    "force_min": 100.0,
+    "force_max": 2000.0,
+    "seed": 42
+  },
+  "created_at": "2026-10-24T19:38:31+0900",
+  "fem_data_seconds": 5.6474369000061415,
+  "data_file": "training_data.npz"
+}
