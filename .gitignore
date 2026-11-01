@@ -1,4 +1,6 @@
 __pycache__/
 .venv/
+.uv-cache/
+.uv-python/
 *.zip
 *.joblib

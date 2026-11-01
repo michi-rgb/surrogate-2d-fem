@@ -4,22 +4,21 @@
 
 ## 1. 最初に実行する
 
-Python 3.10以上をインストールし、このフォルダーをターミナルで開きます。以下はWindows PowerShellの例です。仮想環境の有効化操作は不要です。
+uvをインストールし、このフォルダーをターミナルで開きます。以下はWindows PowerShellの例です。`uv sync` は `.python-version` で指定されたPython 3.14の仮想環境を作り、`uv.lock` に記録された依存ライブラリをインストールします。Python 3.14が未導入の場合、uvがダウンロードします。仮想環境の有効化操作は不要です。
 
 ```powershell
-python -m venv .venv
-.venv\Scripts\python.exe -m pip install -r requirements.txt
-.venv\Scripts\python.exe beam_surrogate.py
+uv sync --locked
+uv run --locked python beam_surrogate.py
 ```
 
 引数なしで、FEMを800回実行 → 学習 → 寸法探索 → 候補のFEM再確認まで進みます。初期条件は **荷重1,000 N、たわみ上限0.5 mm** です。実行時間はPCに依存します。
 
-macOS/Linuxの場合は、環境作成後のPythonを `.venv/bin/python` に置き換えてください。
+macOS/Linuxでも同じ `uv run` コマンドを使えます。`--locked` はロックファイルが最新であることを確認し、変更せずに実行します。
 
 2回目からは、保存済みモデルを使って荷重と上限を変えられます。
 
 ```powershell
-.venv\Scripts\python.exe beam_surrogate.py predict --force 1500 --limit 0.2
+uv run --locked python beam_surrogate.py predict --force 1500 --limit 0.2
 ```
 
 このとき再学習は不要です。結果ファイルは `output` に保存され、同名ファイルは上書きします。残したい結果はフォルダーごとコピーしてください。`--output` はモデルの保存先・読込先の両方を指定します。
@@ -87,9 +86,9 @@ flowchart TD
 まずFEM教師データを生成します。生成条件（点数、材料・メッシュ・寸法・荷重範囲、乱数シード）から16桁の `dataset-id` が付き、`data_cache/<dataset-id>/` にデータと条件メタデータが保存されます。同じ条件で再実行するとFEMを解き直さずキャッシュを使います。条件が異なれば別ID・別フォルダーになります。
 
 ```powershell
-.venv\Scripts\python.exe beam_surrogate.py generate-data --samples 800
+uv run --locked python beam_surrogate.py generate-data --samples 800
 # メッシュなどの条件を変えたデータセットも別IDで保存
-.venv\Scripts\python.exe beam_surrogate.py generate-data --samples 800 --nx 60 --ny 6
+uv run --locked python beam_surrogate.py generate-data --samples 800 --nx 60 --ny 6
 ```
 
 次にキャッシュ済みデータで学習します。省略時は現在の点数と解析条件に対応するIDを選びます。特定のIDを指定すると、そのキャッシュに記録された点数・解析条件を読み込んで学習します。
@@ -99,10 +98,10 @@ flowchart TD
 既定モデルは **ExtraTreesRegressor**（多数の決定木を組み合わせるExtra Trees）です。ランダムフォレストにも切り替えられます。
 
 ```powershell
-.venv\Scripts\python.exe beam_surrogate.py generate-data --samples 1600
-.venv\Scripts\python.exe beam_surrogate.py train --samples 1600 --model random-forest --output output_rf
-.venv\Scripts\python.exe beam_surrogate.py train --dataset-id 生成時に表示されたID --output output_rf
-.venv\Scripts\python.exe beam_surrogate.py predict --force 1000 --limit 0.1 --output output_rf
+uv run --locked python beam_surrogate.py generate-data --samples 1600
+uv run --locked python beam_surrogate.py train --samples 1600 --model random-forest --output output_rf
+uv run --locked python beam_surrogate.py train --dataset-id 生成時に表示されたID --output output_rf
+uv run --locked python beam_surrogate.py predict --force 1000 --limit 0.1 --output output_rf
 ```
 
 `train` はキャッシュがない場合にエラーを表示します。先に同じ点数・解析設定で `generate-data` を実行するか、生成時に表示された `dataset-id` を指定してください。データ生成条件と学習モデルの種類は別に管理されるため、同じキャッシュからExtra Treesとランダムフォレストの両方を学習できます。
@@ -207,7 +206,7 @@ model = ExtraTreesRegressor(
 
 ```powershell
 # 格子を細かくし、余裕係数と再確認数を増やす
-.venv\Scripts\python.exe beam_surrogate.py predict --force 1800 --limit 0.15 --grid 121 --safety-factor 1.3 --verify 20
+uv run --locked python beam_surrogate.py predict --force 1800 --limit 0.15 --grid 121 --safety-factor 1.3 --verify 20
 ```
 
 学習範囲外の荷重はエラーにします。寸法も学習時に設定した範囲内だけを探索します。材料、厚さ、寸法範囲を変える場合は `Settings` を編集して再学習してください。`predict` はモデル内に保存された解析設定を使います。
@@ -240,9 +239,9 @@ README内の図は `output` 内のPNGを相対パスで参照しています。`
 ## 6. FEMだけを体験する・検算する
 
 ```powershell
-.venv\Scripts\python.exe beam_surrogate.py fem --length 800 --height 80 --force 1000
-.venv\Scripts\python.exe beam_surrogate.py fem --length 800 --height 80 --force 1000 --nx 240 --ny 24
-.venv\Scripts\python.exe -m unittest -v
+uv run --locked python beam_surrogate.py fem --length 800 --height 80 --force 1000
+uv run --locked python beam_surrogate.py fem --length 800 --height 80 --force 1000 --nx 240 --ny 24
+uv run --locked python -m unittest -v
 ```
 
 `fem` はFEMたわみ、はり理論による参考値、左右の反力を表示し、変形図 `fem_deformation.png` を保存します。変形は表示倍率を掛けています。荷重を2倍にしたときのたわみと反力も確認してみてください。
@@ -281,7 +280,7 @@ Q4要素は曲げに対して硬めになる場合があり、既定メッシュ
 同じ81×81の寸法格子をFEMで全点計算する方式と、サロゲートで一括予測する方式を3回ずつ実測します。教師データ生成・学習の初期費用、一部候補をFEMで再確認する費用、合否の誤判定も比較します。
 
 ```powershell
-.venv\Scripts\python.exe -X utf8 benchmark_surrogate.py
+uv run --locked python -X utf8 benchmark_surrogate.py
 ```
 
 先に引数なしの `beam_surrogate.py` を実行して、既定の800点の教師データとExtra Treesモデルを `output` に作成してください。計測には全点FEMを複数回解く時間が必要です。結果は [時間比較レポート](FEM_surrogate_time_comparison.md)、測定値・全点比較は `benchmark_output` に保存します。既存の `output` の解析結果は変更しません。
@@ -290,7 +289,7 @@ Q4要素は曲げに対して硬めになる場合があり、既定メッシュ
 
 ## 9. 再現性と参考資料
 
-Windows / Python 3.12.3、NumPy 2.4.4、SciPy 1.17.1、scikit-learn 1.7.2、Matplotlib 3.10.7で確認しました。`requirements.txt` は許容範囲を示し、厳密な環境固定ではありません。
+Windows / Python 3.14.10、NumPy 2.5.4、SciPy 1.18.1、scikit-learn 1.9.1、Matplotlib 3.11.2 で小規模な一連の処理を確認しました。依存関係の許容範囲は `pyproject.toml`、解決済みのバージョンは `uv.lock` に記録しています。依存関係を変更した場合は `uv lock` でロックファイルを更新し、`uv sync --locked` で環境に反映します。
 
 既定条件・乱数シード42での実行例では、800点生成に約10秒、テスト160点のMAPEは8.40%、R2は0.9503、最大相対誤差は45.54%でした。荷重1,000 N・上限0.5 mm・余裕係数1.15の探索で、再確認12点中2点がFEMでは上限を超えました。これは実際に保存した例で、予測合格をそのまま設計合格にできないことも体験できます。計算時間や結果の細部は環境によって変わります。
 

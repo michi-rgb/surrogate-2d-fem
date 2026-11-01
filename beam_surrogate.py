@@ -1,6 +1,6 @@
 """2次元FEM → 教師データ → 決定木系サロゲート → 寸法探索の講座用教材。
 
-単位は N, mm, MPa (= N/mm²)。実行例は README.md を参照。
+単位は N, mm, MPa (= N/mm^2)。実行例は README.md を参照。
 """
 
 from __future__ import annotations
